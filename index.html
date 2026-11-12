@@ -731,7 +731,7 @@
         <div id="cart-footer-container" class="hidden p-5 bg-[#FAF9F6] border-t border-gray-200 space-y-3">
           
           <div class="space-y-1.5 text-xs text-gray-600">
-            <div class="flex justify-between">
+            <div class="hidden justify-between">
               <span>المجموع الأولي:</span>
               <span id="summary-subtotal" class="font-bold text-gray-900 font-mono">0 <svg class="inline-block w-[0.88em] h-[0.88em] align-[-0.06em] fill-current shrink-0" viewBox="0 0 497 557" aria-label="ريال سعودي"><path d="M496,456L490,455L486,457L460,461L454,464L447,464L423,471L417,471L311,494L301,516L297,531L294,553L296,556L300,556L308,553L334,549L397,534L423,530L430,527L438,527L443,524L454,523L459,520L467,520L481,515L489,494L493,474L496,467ZM351,29L293,78L293,254L233,265L233,2L176,47L175,280L47,309L29,367L173,342L175,417L18,452L2,514L169,479L190,467L233,402L239,327L292,318L295,435L481,395L494,333L351,362L354,302L478,276L496,226L494,213L351,241Z"/></svg></span>
             </div>
@@ -740,7 +740,7 @@
               <span id="summary-discount" class="font-mono">0 <svg class="inline-block w-[0.88em] h-[0.88em] align-[-0.06em] fill-current shrink-0" viewBox="0 0 497 557" aria-label="ريال سعودي"><path d="M496,456L490,455L486,457L460,461L454,464L447,464L423,471L417,471L311,494L301,516L297,531L294,553L296,556L300,556L308,553L334,549L397,534L423,530L430,527L438,527L443,524L454,523L459,520L467,520L481,515L489,494L493,474L496,467ZM351,29L293,78L293,254L233,265L233,2L176,47L175,280L47,309L29,367L173,342L175,417L18,452L2,514L169,479L190,467L233,402L239,327L292,318L295,435L481,395L494,333L351,362L354,302L478,276L496,226L494,213L351,241Z"/></svg></span>
             </div>
             <div class="flex justify-between text-base font-black text-[#781329] pt-2 border-t border-gray-200">
-              <span>الإجمالي النهائي:</span>
+              <span>الإجمالي:</span>
               <span id="summary-total" class="font-mono text-lg">0 <svg class="inline-block w-[0.88em] h-[0.88em] align-[-0.06em] fill-current shrink-0" viewBox="0 0 497 557" aria-label="ريال سعودي"><path d="M496,456L490,455L486,457L460,461L454,464L447,464L423,471L417,471L311,494L301,516L297,531L294,553L296,556L300,556L308,553L334,549L397,534L423,530L430,527L438,527L443,524L454,523L459,520L467,520L481,515L489,494L493,474L496,467ZM351,29L293,78L293,254L233,265L233,2L176,47L175,280L47,309L29,367L173,342L175,417L18,452L2,514L169,479L190,467L233,402L239,327L292,318L295,435L481,395L494,333L351,362L354,302L478,276L496,226L494,213L351,241Z"/></svg></span>
             </div>
           </div>
@@ -1395,7 +1395,7 @@
       cart.forEach(function(item, idx) {
         msg += `${idx + 1}. *${item.quantity}x ${item.name}* (${(item.unitPrice * item.quantity).toFixed(1).replace('.0', '')} ر.س)\n`;
         if (item.isMeal) {
-          msg += `   🍟 + ترقية لوجبة (بطاطس + مشروب غازي) (+5 ر.س)\n`;
+          msg += `   🍟 + إضافة وجبة (بطاطس + مشروب غازي) (+5 ر.س)\n`;
         }
         if (item.addons && item.addons.length) {
           msg += `   ✨ + إضافات: ${item.addons.join('، ')}\n`;
@@ -1406,11 +1406,10 @@
       });
 
       msg += `\n--------------------------------\n`;
-      msg += `💰 *المجموع الأولي:* ${subtotal.toFixed(1).replace('.0', '')} ر.س\n`;
       if (discountAmount > 0) {
         msg += `🎁 *الخصم (${appliedCoupon.code}):* -${discountAmount.toFixed(1).replace('.0', '')} ر.س\n`;
       }
-      msg += `💵 *الإجمالي النهائي المطلوب:* *${finalTotal.toFixed(1).replace('.0', '')} ر.س*\n`;
+      msg += `💵 *الإجمالي:* *${finalTotal.toFixed(1).replace('.0', '')} ر.س*\n`;
       msg += `--------------------------------\n`;
       msg += `أرجو تأكيد استلام الطلب وتزويدي بوقت التجهيز المتوقع. شكراً لكم!`;
 
