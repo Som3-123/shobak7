@@ -996,11 +996,14 @@
         emptyState.classList.add('hidden');
       }
 
+      const breakfastActive = isBreakfastTime();
+
       filtered.forEach(function(item) {
         const card = document.createElement('div');
         card.className = "bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col justify-between group";
 
-        const isAvailable = item.available !== false;
+        const isFatayerTimeLocked = (item.category === 'fatayer' && !breakfastActive);
+        const isAvailable = (item.available !== false) && !isFatayerTimeLocked;
 
         card.innerHTML = `
           <div>
@@ -1022,8 +1025,9 @@
               </div>
 
               ${!isAvailable ? `
-                <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center">
-                  <span class="bg-red-600 text-white text-xs font-black px-3 py-1 rounded-xl shadow-lg">غير متوفر حالياً</span>
+                <div class="absolute inset-0 bg-black/55 backdrop-blur-[2px] flex flex-col items-center justify-center p-2 text-center">
+                  <span class="bg-red-600 text-white text-[11px] sm:text-xs font-black px-3 py-1 rounded-xl shadow-lg">${isFatayerTimeLocked ? 'غير متاح للطلب حالياً' : 'غير متوفر حالياً'}</span>
+                  ${isFatayerTimeLocked ? `<span class="mt-1.5 bg-black/75 text-amber-300 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-lg">☀️ متاح في الفطور (5 ص - 12 ظ)</span>` : ''}
                 </div>
               ` : ''}
             </div>
@@ -1056,8 +1060,8 @@
                 <span>${item.allowMeal || item.category === 'fatayer' ? 'تخصيص وإضافة للسلة' : 'أضف للسلة'}</span>
               </button>
             ` : `
-              <button disabled class="w-full bg-gray-100 text-gray-400 py-2.5 px-4 rounded-2xl text-xs font-bold cursor-not-allowed">
-                غير متاح
+              <button disabled class="w-full bg-gray-100 text-gray-400 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs font-bold cursor-not-allowed">
+                ${isFatayerTimeLocked ? 'غير متاح للطلب (فترة الفطور فقط)' : 'غير متاح'}
               </button>
             `}
           </div>
@@ -1075,10 +1079,40 @@
       });
     }
 
+    // Check if current time is within breakfast window (5:00 AM to 12:00 PM Saudi time)
+    function isBreakfastTime() {
+      try {
+        const parts = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Riyadh',
+          hour: 'numeric',
+          hour12: false
+        }).formatToParts(new Date());
+        const hourPart = parts.find(function(p) { return p.type === 'hour'; });
+        const hour = hourPart ? (parseInt(hourPart.value, 10) % 24) : new Date().getHours();
+        return hour >= 5 && hour < 12;
+      } catch (e) {
+        const hour = new Date().getHours();
+        return hour >= 5 && hour < 12;
+      }
+    }
+
+    let lastBreakfastState = isBreakfastTime();
+    setInterval(function() {
+      const currentState = isBreakfastTime();
+      if (currentState !== lastBreakfastState) {
+        lastBreakfastState = currentState;
+        renderMenu();
+      }
+    }, 30000);
+
     // Item Customization Modal
     function openCustomizeModal(itemId) {
       const item = menuItems.find(function(i) { return i.id === itemId; });
       if (!item) return;
+      if (item.category === 'fatayer' && !isBreakfastTime()) {
+        showToast('الفطائر متاحة للطلب في فترة الفطور فقط (من 5 الفجر إلى 12 الظهر)', '☀️');
+        return;
+      }
 
       currentCustomizingItem = item;
       modalQuantity = 1;
@@ -1350,6 +1384,17 @@
       if (cart.length === 0) {
         showToast('سلة طلباتك فارغة!', '⚠️');
         return;
+      }
+
+      if (!isBreakfastTime()) {
+        const hasFatayer = cart.some(function(c) {
+          const m = menuItems.find(function(i) { return i.id === c.id; });
+          return m && m.category === 'fatayer';
+        });
+        if (hasFatayer) {
+          showToast('انتهت فترة الفطور (5 الفجر - 12 الظهر)! يرجى حذف الفطائر من السلة لإتمام الطلب', '☀️');
+          return;
+        }
       }
 
       const custName = document.getElementById('cust-name').value.trim();
