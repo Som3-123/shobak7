@@ -1447,42 +1447,44 @@
       }
       const finalTotal = Math.max(0, subtotal - discountAmount);
 
-      // Build formatted WhatsApp message
-      let msg = `*طلب جديد من موقع مطعم شباك 7 | SHOBAK 7* 🍔✨\n`;
-      msg += `--------------------------------\n`;
-      msg += `👤 *اسم العميل:* ${custName}\n`;
-      msg += `📦 *نوع الطلب:* ${orderType}\n`;
+      // Build formatted WhatsApp message with strict RTL (Right-to-Left) alignment on every line
+      const RLM = '\u200F';
+      let msg = `${RLM}*طلب جديد من موقع مطعم شباك 7 | SHOBAK 7* ✨\n`;
+      msg += `${RLM}--------------------------------\n`;
+      msg += `${RLM}• *اسم العميل:* ${RLM}${custName}\n`;
+      msg += `${RLM}• *نوع الطلب:* ${orderType}\n`;
 
       if (notes) {
-        msg += `📝 *ملاحظات عامة:* ${notes}\n`;
+        msg += `${RLM}• *ملاحظات عامة:* ${notes}\n`;
       }
-      msg += `--------------------------------\n`;
-      msg += `📋 *تفاصيل الأصناف المطلوبة:*\n\n`;
+      msg += `${RLM}--------------------------------\n`;
+      msg += `${RLM}*تفاصيل الأصناف المطلوبة:*\n\n`;
 
       cart.forEach(function(item, idx) {
-        msg += `${idx + 1}. *${item.quantity}x ${item.name}* (${(item.unitPrice * item.quantity).toFixed(1).replace('.0', '')} ر.س)\n`;
+        const lineTotal = (item.unitPrice * item.quantity).toFixed(1).replace('.0', '');
+        msg += `${RLM}${idx + 1}- *${RLM}${item.name} (العدد: ${item.quantity})* — ${lineTotal} ر.س\n`;
         if (item.isMeal) {
-          msg += `   🍟 + إضافة وجبة (بطاطس + مشروب غازي كنزا) (+5 ر.س)\n`;
+          msg += `${RLM}   + إضافة وجبة (بطاطس + مشروب غازي كنزا) (+5 ر.س)\n`;
         }
         if (item.addons && item.addons.length) {
-          msg += `   ✨ + إضافات: ${item.addons.join('، ')}\n`;
+          msg += `${RLM}   + إضافات: ${item.addons.join('، ')}\n`;
         }
         if (item.notes) {
-          msg += `   🏷️ ملاحظة خاصة: ${item.notes}\n`;
+          msg += `${RLM}   + ملاحظة خاصة: ${item.notes}\n`;
         }
       });
 
-      msg += `\n--------------------------------\n`;
+      msg += `\n${RLM}--------------------------------\n`;
       if (discountAmount > 0) {
-        msg += `🎁 *الخصم (${appliedCoupon.code}):* -${discountAmount.toFixed(1).replace('.0', '')} ر.س\n`;
+        msg += `${RLM}• *الخصم (${appliedCoupon.code}):* -${discountAmount.toFixed(1).replace('.0', '')} ر.س\n`;
       }
-      msg += `💵 *الإجمالي:* *${finalTotal.toFixed(1).replace('.0', '')} ر.س*\n`;
-      msg += `--------------------------------\n`;
-      msg += `أرجو تأكيد استلام الطلب وتزويدي بوقت التجهيز المتوقع. شكراً لكم!`;
+      msg += `${RLM}• *الإجمالي:* *${finalTotal.toFixed(1).replace('.0', '')} ر.س*\n`;
+      msg += `${RLM}--------------------------------\n`;
+      msg += `${RLM}أرجو تأكيد استلام الطلب وتزويدي بوقت التجهيز المتوقع. شكراً لكم!`;
 
-      // WhatsApp URL
+      // WhatsApp URL (using api.whatsapp.com to preserve full UTF-8 encoding across Desktop & Mobile)
       const waNumber = appConfig.whatsappFormatted || '966544505296';
-      const waUrl = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(msg);
+      const waUrl = 'https://api.whatsapp.com/send?phone=' + waNumber + '&text=' + encodeURIComponent(msg);
 
       // Open WhatsApp
       window.open(waUrl, '_blank');
