@@ -680,21 +680,12 @@
 
               <div>
                 <label class="block text-xs font-bold text-gray-700 mb-1">نوع الطلب</label>
-                <div class="grid grid-cols-2 gap-2 text-xs font-bold">
-                  <label class="flex items-center justify-center gap-2 p-2.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-[#781329] transition-all has-[:checked]:border-[#781329] has-[:checked]:bg-[#781329]/5">
+                <div class="grid grid-cols-1 gap-2 text-xs font-bold">
+                  <label class="flex items-center justify-center gap-2 p-2.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-[#781329] transition-colors has-[:checked]:border-[#781329] has-[:checked]:bg-[#781329]/5">
                     <input type="radio" name="order-type" value="استلام من الفرع" checked class="text-[#781329] focus:ring-[#781329]">
                     <span>🚗 استلام من الفرع</span>
                   </label>
-                  <label class="flex items-center justify-center gap-2 p-2.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-[#781329] transition-all has-[:checked]:border-[#781329] has-[:checked]:bg-[#781329]/5">
-                    <input type="radio" name="order-type" value="توصيل محلي" class="text-[#781329] focus:ring-[#781329]">
-                    <span>🛵 توصيل محلي</span>
-                  </label>
                 </div>
-              </div>
-
-              <div>
-                <label for="cust-address" class="block text-xs font-bold text-gray-700 mb-1">العنوان أو رقم السيارة / الطاولة</label>
-                <input type="text" id="cust-address" placeholder="مثال: سيارة كامري بيضاء رقم ... أو الحي والشارع" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#781329]">
               </div>
 
               <div>
@@ -1447,7 +1438,6 @@
         }
       }
 
-      const address = document.getElementById('cust-address').value.trim();
       const notes = document.getElementById('order-notes').value.trim();
 
       const subtotal = cart.reduce(function(sum, item) { return sum + (item.unitPrice * item.quantity); }, 0);
@@ -1462,9 +1452,7 @@
       msg += `--------------------------------\n`;
       msg += `👤 *اسم العميل:* ${custName}\n`;
       msg += `📦 *نوع الطلب:* ${orderType}\n`;
-      if (address) {
-        msg += `📍 *العنوان / رقم السيارة:* ${address}\n`;
-      }
+
       if (notes) {
         msg += `📝 *ملاحظات عامة:* ${notes}\n`;
       }
