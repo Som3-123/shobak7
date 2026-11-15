@@ -125,7 +125,7 @@
       scrollbar-width: none;
     }
     .shobak-glass {
-      background: rgba(250, 249, 246, 0.98);
+      background-color: #FFFFFF;
     }
     .shobak-glass-dark {
       background: rgba(120, 19, 41, 0.98);
@@ -303,7 +303,7 @@
       </div>
 
       <!-- Sticky Categories Navigation Bar (Mobile-First, >=44px Touch Targets, Custom SVG Icons) -->
-      <div id="sticky-categories-wrap" class="sticky top-20 z-30 bg-[#FAF9F6]/98 py-3 -mx-4 px-4 sm:mx-0 sm:px-0 mb-6 border-b border-[#E5E0D5]">
+      <div id="sticky-categories-wrap" style="background-color: #FFFFFF;" class="sticky top-20 z-30 bg-white py-3 -mx-4 px-4 sm:mx-0 sm:px-4 sm:rounded-2xl mb-6 border-b border-[#E5E0D5] shadow-md">
         <div id="categories-scroll-container" class="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar text-sm font-bold" role="tablist" aria-label="أقسام المنيو">
           <button data-category="all" role="tab" aria-selected="true" class="category-btn tap-scale active min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-[#781329] text-white border border-[#781329]">
             <svg class="w-4 h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
@@ -671,7 +671,7 @@
   </footer>
 
   <!-- Floating Mobile Bottom Bar (Sticky on Small Screens, Safe Area Aware, 52px Touch Target) -->
-  <div id="mobile-floating-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/98 border-t-2 border-[#E5E0D5] px-3.5 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(20,24,31,0.12)] flex items-center justify-between gap-2.5">
+  <div id="mobile-floating-bar" style="background-color: #FFFFFF;" class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white border-t-2 border-[#E5E0D5] px-3.5 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(20,24,31,0.15)] flex items-center justify-between gap-2.5">
     <button id="mobile-cart-btn" type="button" class="tap-scale flex-1 min-h-[52px] bg-[#781329] hover:bg-[#5E0E20] text-white py-3 px-4 rounded-2xl font-heading font-black text-sm flex items-center justify-between shadow-lg">
       <div class="flex items-center gap-2.5">
         <div class="relative flex items-center justify-center w-8 h-8 rounded-xl bg-white/15">
@@ -1077,7 +1077,7 @@
             <img src="${item.image}" alt="${item.name}" decoding="async" class="w-full h-full object-cover">
             
             <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 items-end">
-              <span class="bg-[#781329]/95 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
+              <span class="bg-[#781329] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
                 ${item.categoryName}
               </span>
             </div>
