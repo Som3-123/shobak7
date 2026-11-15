@@ -6,10 +6,10 @@
   <title>مطعم شباك 7 | SHOBAK 7 - مذاق يستحق التجربة</title>
   <meta name="description" content="مطعم شباك 7 | SHOBAK 7 - وجهتكم لأشهى الفطائر الطازجة، وبرجر حسيل بلدي طازج، وساندويتشات مشوية. اطلب الآن عبر الواتساب.">
   
-  <!-- Fonts: Cairo & Tajawal -->
+  <!-- Fonts: Cairo, IBM Plex Sans Arabic & Tajawal (UI/UX Pro Max Arabic Pairing) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -58,14 +58,49 @@
   </script>
 
   <style>
+    :root {
+      --color-primary: #781329;
+      --color-primary-hover: #5E0E20;
+      --color-primary-deep: #3D0713;
+      --color-accent: #F5A99B;
+      --color-accent-soft: #FDF2F4;
+      --color-bg: #FAF9F6;
+      --color-surface: #FFFFFF;
+      --color-surface-muted: #F3F1EC;
+      --color-text-primary: #14181F;
+      --color-text-secondary: #475569;
+      --color-border: #E5E0D5;
+      --color-whatsapp: #15803D;
+      --radius-card: 24px;
+      --radius-control: 14px;
+      --motion-fast: 150ms cubic-bezier(0.2, 0, 0, 1);
+      --motion-standard: 220ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 148px;
+    }
     body {
-      font-family: 'Tajawal', sans-serif;
-      background-color: #FAF9F6;
-      color: #1F2937;
+      font-family: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.65;
       overflow-x: hidden;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
     h1, h2, h3, h4, .font-heading {
-      font-family: 'Cairo', sans-serif;
+      font-family: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .tabular-nums, .font-mono {
+      font-variant-numeric: tabular-nums;
+      font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+    }
+    /* Accessible Focus Ring (WCAG 2.2 AA/AAA) */
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, label:focus-within {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 2px;
     }
     /* Custom scrollbar */
     ::-webkit-scrollbar {
@@ -82,6 +117,13 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #551322;
     }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
     .shobak-glass {
       background: rgba(250, 249, 246, 0.98);
     }
@@ -92,11 +134,26 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
+    .tap-scale {
+      transition: transform var(--motion-fast), background-color var(--motion-fast), border-color var(--motion-fast), box-shadow var(--motion-fast);
+    }
+    .tap-scale:active {
+      transform: scale(0.96);
+    }
     .menu-card-item {
       contain: layout style paint;
+      transition: border-color var(--motion-standard), box-shadow var(--motion-standard);
     }
     .shine-btn {
       position: relative;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
@@ -193,29 +250,26 @@
             في <strong class="text-white font-bold">شباك 7 | SHOBAK 7</strong>، نبتكر توليفة تجمع بين أصالة الفطائر الطازجة في الصباح، ولذة برجر السماش المحضر من لحم حسيل بلدي في المساء، مع ساندويتشات مشوية لا تقاوم.
           </p>
 
-          <!-- Quality Pills -->
+          <!-- Quality Pills (SVG Icons, High Contrast) -->
           <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-
-            <div class="flex items-center gap-2 bg-white/10 px-3.5 py-2 rounded-xl border border-white/10 text-xs sm:text-sm">
-              <span class="text-lg">🕒</span>
-              <span class="font-bold">24 ساعة لخدمتكم</span>
+            <div class="flex items-center gap-2 bg-white/15 px-4 py-2.5 rounded-2xl border border-white/20 text-xs sm:text-sm">
+              <svg class="w-4 h-4 text-[#F5A99B] shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span class="font-bold text-white">مفتوح 24 ساعة لخدمتكم</span>
             </div>
-            <div class="flex items-center gap-2 bg-white/10 px-3.5 py-2 rounded-xl border border-white/10 text-xs sm:text-sm">
-              <span class="text-lg">☀️</span>
-              <span class="font-bold">فترة الإفطار من 5 الفجر إلى 12 الظهر</span>
+            <div class="flex items-center gap-2 bg-white/15 px-4 py-2.5 rounded-2xl border border-white/20 text-xs sm:text-sm">
+              <svg class="w-4 h-4 text-amber-300 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              <span class="font-bold text-white">فترة الفطور: 5 الفجر – 12 الظهر</span>
             </div>
           </div>
 
-          <!-- Buttons -->
-          <div class="flex flex-row flex-wrap items-center justify-center gap-2.5 sm:gap-4 pt-4">
-            <a href="#menu" class="w-auto shine-btn bg-[#F5A99B] hover:bg-[#e8998a] text-[#781329] font-heading font-black text-lg px-8 py-3.5 rounded-xl shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-              <svg class="w-5 h-5 text-[#781329]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+          <!-- Primary CTA -->
+          <div class="flex flex-row flex-wrap items-center justify-center gap-3 pt-4">
+            <a href="#menu" class="tap-scale min-h-[52px] bg-[#F5A99B] hover:bg-[#f09787] text-[#3D0713] font-heading font-black text-base sm:text-lg px-8 py-3.5 rounded-2xl shadow-xl flex items-center justify-center gap-2.5">
+              <span>تصفح المنيو واطلب الآن</span>
+              <svg class="w-5 h-5 text-[#3D0713]" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
               </svg>
-              <span>أطلب الأن</span>
             </a>
-            
-
           </div>
 
       </div>
@@ -227,57 +281,71 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-10">
-        
-        <h2 class="text-3xl sm:text-4xl font-heading font-black text-[#781329] mt-3">منيو مطعم شباك 7</h2>
-        <p class="text-gray-600 text-sm sm:text-base mt-2">
-          جميع الأسعار بالريال السعودي شاملة مع توضيح السعرات الحرارية لكل صنف كما هي في المنيو.
+      <div class="text-center max-w-3xl mx-auto mb-6">
+        <div id="breakfast-live-banner" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-amber-100/90 text-amber-950 border border-amber-300 mb-3">
+          <svg class="w-4 h-4 text-amber-700 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span id="breakfast-live-text">فترة الفطور (الفطائر): من 5 الفجر إلى 12 الظهر • البرجر والساندويتشات: 24 ساعة</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-black text-[#781329]">منيو مطعم شباك 7</h2>
+        <p class="text-[#475569] text-sm sm:text-base mt-1.5 font-medium">
+          اختر القسم أو ابحث مباشرة وأضف أصنافك المفضلة بلمسة واحدة مع عرض السعرات الحرارية لكل صنف.
         </p>
 
-        <!-- Search Bar -->
-        <div class="mt-6 max-w-md mx-auto relative">
-          <input type="text" id="menu-search-input" placeholder="ابحث عن صنفك المفضل (كبدة، برجر سماش، زنجر، شاي عدني...)" class="w-full pl-10 pr-12 py-3 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#781329] focus:border-transparent text-sm bg-white shadow-sm">
-          <div class="absolute right-4 top-3.5 text-gray-400">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <!-- Search Bar (16px font on mobile to prevent iOS zoom, 48px touch height) -->
+        <div class="mt-5 max-w-lg mx-auto relative">
+          <label for="menu-search-input" class="sr-only">ابحث في منيو شباك 7</label>
+          <input type="search" id="menu-search-input" placeholder="ابحث عن صنفك المفضل (كبدة، برجر سماش، زنجر، شاهي عدني...)" class="w-full ps-11 pe-16 py-3 min-h-[48px] rounded-2xl border-2 border-[#E5E0D5] focus:outline-none focus:border-[#781329] text-base sm:text-sm bg-white text-[#14181F] placeholder-[#64748B] shadow-sm transition-colors">
+          <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-[#781329]">
+            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </div>
-          <button id="clear-search-btn" class="hidden absolute left-3 top-3 text-xs bg-gray-200 hover:bg-gray-300 text-gray-600 px-2 py-1 rounded-md">مسح</button>
+          <button id="clear-search-btn" type="button" class="hidden absolute left-2.5 top-1/2 -translate-y-1/2 min-h-[34px] text-xs font-bold bg-[#F3F1EC] hover:bg-[#E5E0D5] text-[#781329] px-3 py-1.5 rounded-xl transition-colors">مسح</button>
         </div>
       </div>
 
-      <!-- Categories Pills Bar -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none text-sm font-bold no-scrollbar">
-        <button data-category="all" class="category-btn focus:outline-none active px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-[#781329] text-white">
-          <span>🍽️ الكل</span>
-          <span class="category-count text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">39</span>
-        </button>
-        <button data-category="fatayer" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>🥟 الفطائر</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">14</span>
-        </button>
-        <button data-category="burgers" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>🍔 البرجر</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">7</span>
-        </button>
-        <button data-category="sandwiches" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>🌯 الساندويتشات</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">3</span>
-        </button>
-        <button data-category="sides" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>🍟 الأطباق الجانبية</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">3</span>
-        </button>
-        <button data-category="sauces" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>🥫 الصوصات</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">2</span>
-        </button>
-        <button data-category="drinks" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>🥤 المشروبات</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">4</span>
-        </button>
-        <button data-category="addons" class="category-btn focus:outline-none px-5 py-2.5 rounded-xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-gray-700 hover:bg-gray-100 border border-gray-200">
-          <span>✨ الإضافات</span>
-          <span class="category-count text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">6</span>
-        </button>
+      <!-- Sticky Categories Navigation Bar (Mobile-First, >=44px Touch Targets, Custom SVG Icons) -->
+      <div id="sticky-categories-wrap" class="sticky top-20 z-30 bg-[#FAF9F6]/98 py-3 -mx-4 px-4 sm:mx-0 sm:px-0 mb-6 border-b border-[#E5E0D5]">
+        <div id="categories-scroll-container" class="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar text-sm font-bold" role="tablist" aria-label="أقسام المنيو">
+          <button data-category="all" role="tab" aria-selected="true" class="category-btn tap-scale active min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-[#781329] text-white border border-[#781329]">
+            <svg class="w-4 h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            <span>الكل</span>
+            <span class="category-count tabular-nums text-xs bg-white/20 text-white px-2 py-0.5 rounded-full">38</span>
+          </button>
+          <button data-category="burgers" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 11h16a1 1 0 011 1v.5a2.5 2.5 0 01-2.5 2.5H5.5A2.5 2.5 0 013 12.5V12a1 1 0 011-1zm1-3c0-2.8 3.1-5 7-5s7 2.2 7 5H5zm0 9h14a2 2 0 01-2 2H7a2 2 0 01-2-2z"/></svg>
+            <span>البرجر</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">7</span>
+          </button>
+          <button data-category="sandwiches" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17.657 6.343a4 4 0 010 5.657l-5.657 5.657a4 4 0 01-5.657-5.657l5.657-5.657a4 4 0 015.657 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9.5 9.5l5 5"/></svg>
+            <span>الساندويتشات</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">3</span>
+          </button>
+          <button data-category="fatayer" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <span>الفطائر</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">14</span>
+          </button>
+          <button data-category="sides" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 10h14l-1.5 10h-11L5 10zm2-6v6m3-7v7m4-7v7m3-6v6"/></svg>
+            <span>الأطباق الجانبية</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">3</span>
+          </button>
+          <button data-category="drinks" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M7 8h10l-1 12H8L7 8zm5-5v5m-6 0h12"/></svg>
+            <span>المشروبات</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">4</span>
+          </button>
+          <button data-category="sauces" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 3c-3.5 4.5-6 7.8-6 11a6 6 0 1012 0c0-3.2-2.5-6.5-6-11z"/></svg>
+            <span>الصوصات</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">2</span>
+          </button>
+          <button data-category="addons" role="tab" aria-selected="false" class="category-btn tap-scale min-h-[44px] px-4 sm:px-5 py-2.5 rounded-2xl transition-all whitespace-nowrap flex items-center gap-2 shadow-sm bg-white text-[#14181F] hover:border-[#781329]/40 border border-[#E5E0D5]">
+            <svg class="w-4 h-4 shrink-0 text-[#781329] cat-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+            <span>الإضافات</span>
+            <span class="category-count tabular-nums text-xs bg-[#F3F1EC] text-[#475569] px-2 py-0.5 rounded-full">5</span>
+          </button>
+        </div>
       </div>
 
 
@@ -289,7 +357,7 @@
 
       <!-- Empty state if search returns zero -->
       <div id="no-products-found" class="hidden text-center py-16 bg-white rounded-3xl border border-gray-200 my-6">
-        <div class="text-5xl mb-3">🔍</div>
+        <div class="w-16 h-16 mx-auto mb-3 rounded-2xl bg-[#FDF2F4] text-[#781329] flex items-center justify-center"><svg class="w-8 h-8" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
         <h3 class="text-xl font-heading font-bold text-gray-800">لم يتم العثور على أي صنف بهذا الاسم</h3>
         <p class="text-gray-500 text-sm mt-1">جرب البحث بكلمة أخرى أو اختر قسماً من القائمة أعلاه</p>
         <button id="reset-filter-btn" class="mt-4 bg-[#781329] text-white px-5 py-2 rounded-xl text-sm font-bold">عرض جميع الأصناف</button>
@@ -345,7 +413,7 @@
             
             <div class="bg-[#FAF9F6] p-3 sm:p-4 rounded-2xl border border-gray-200/80">
               <div class="flex items-center gap-2.5 mb-2">
-                <span class="text-2xl">🥩</span>
+                <span class="w-9 h-9 rounded-xl bg-[#781329]/10 text-[#781329] flex items-center justify-center shrink-0"><svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></span>
                 <h4 class="font-heading font-black text-gray-900 text-xs sm:text-base">اللحم: حسيل بلدي طازج</h4>
               </div>
               <p class="text-xs text-gray-600 leading-relaxed">
@@ -355,7 +423,7 @@
 
             <div class="bg-[#FAF9F6] p-3 sm:p-4 rounded-2xl border border-gray-200/80">
               <div class="flex items-center gap-2.5 mb-2">
-                <span class="text-2xl">🍗</span>
+                <span class="w-9 h-9 rounded-xl bg-[#781329]/10 text-[#781329] flex items-center justify-center shrink-0"><svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></span>
                 <h4 class="font-heading font-black text-gray-900 text-xs sm:text-base">الدجاج: وطني طازج</h4>
               </div>
               <p class="text-xs text-gray-600 leading-relaxed">
@@ -365,7 +433,7 @@
 
             <div class="bg-[#FAF9F6] p-3 sm:p-4 rounded-2xl border border-gray-200/80">
               <div class="flex items-center gap-2.5 mb-2">
-                <span class="text-2xl">🥟</span>
+                <span class="w-9 h-9 rounded-xl bg-[#781329]/10 text-[#781329] flex items-center justify-center shrink-0"><svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></span>
                 <h4 class="font-heading font-black text-gray-900 text-xs sm:text-base">الفطائر: عجين طازج</h4>
               </div>
               <p class="text-xs text-gray-600 leading-relaxed">
@@ -375,7 +443,7 @@
 
             <div class="bg-[#FAF9F6] p-3 sm:p-4 rounded-2xl border border-gray-200/80">
               <div class="flex items-center gap-2.5 mb-2">
-                <span class="text-2xl">⚡</span>
+                <span class="w-9 h-9 rounded-xl bg-[#781329]/10 text-[#781329] flex items-center justify-center shrink-0"><svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></span>
                 <h4 class="font-heading font-black text-gray-900 text-xs sm:text-base">خدمة سريعة واهتمام</h4>
               </div>
               <p class="text-xs text-gray-600 leading-relaxed">
@@ -602,15 +670,20 @@
     </div>
   </footer>
 
-  <!-- Floating Mobile Bottom Bar (Sticky on Small Screens) -->
-  <div id="mobile-floating-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 border-t border-gray-200 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] flex items-center justify-between gap-3">
-    <button id="mobile-cart-btn" class="flex-1 bg-[#781329] text-white py-2.5 px-4 rounded-xl font-heading font-bold text-sm flex items-center justify-center gap-2 shadow-md">
-      <svg class="w-5 h-5 text-[#F5A99B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-      <span>السلة (<span id="mobile-cart-count">0</span>)</span>
-      <span class="text-xs text-[#F5A99B] border-r border-white/30 pr-2" id="mobile-cart-total">0 <svg class="inline-block w-[0.88em] h-[0.88em] align-[-0.06em] fill-current shrink-0" viewBox="0 0 497 557" aria-label="ريال سعودي"><path d="M496,456L490,455L486,457L460,461L454,464L447,464L423,471L417,471L311,494L301,516L297,531L294,553L296,556L300,556L308,553L334,549L397,534L423,530L430,527L438,527L443,524L454,523L459,520L467,520L481,515L489,494L493,474L496,467ZM351,29L293,78L293,254L233,265L233,2L176,47L175,280L47,309L29,367L173,342L175,417L18,452L2,514L169,479L190,467L233,402L239,327L292,318L295,435L481,395L494,333L351,362L354,302L478,276L496,226L494,213L351,241Z"/></svg></span>
+  <!-- Floating Mobile Bottom Bar (Sticky on Small Screens, Safe Area Aware, 52px Touch Target) -->
+  <div id="mobile-floating-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/98 border-t-2 border-[#E5E0D5] px-3.5 pt-2.5 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(20,24,31,0.12)] flex items-center justify-between gap-2.5">
+    <button id="mobile-cart-btn" type="button" class="tap-scale flex-1 min-h-[52px] bg-[#781329] hover:bg-[#5E0E20] text-white py-3 px-4 rounded-2xl font-heading font-black text-sm flex items-center justify-between shadow-lg">
+      <div class="flex items-center gap-2.5">
+        <div class="relative flex items-center justify-center w-8 h-8 rounded-xl bg-white/15">
+          <svg class="w-5 h-5 text-[#F5A99B]" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          <span id="mobile-cart-count" class="tabular-nums -top-1.5 -right-1.5 absolute bg-[#F5A99B] text-[#3D0713] text-[11px] font-black min-w-[20px] h-5 px-1 rounded-full flex items-center justify-center">0</span>
+        </div>
+        <span>عرض السلة وإتمام الطلب</span>
+      </div>
+      <span class="tabular-nums text-sm font-black text-[#F5A99B] bg-black/25 px-3 py-1 rounded-xl" id="mobile-cart-total">0 <svg class="inline-block w-[0.88em] h-[0.88em] align-[-0.06em] fill-current shrink-0" viewBox="0 0 497 557" aria-label="ريال سعودي"><path d="M496,456L490,455L486,457L460,461L454,464L447,464L423,471L417,471L311,494L301,516L297,531L294,553L296,556L300,556L308,553L334,549L397,534L423,530L430,527L438,527L443,524L454,523L459,520L467,520L481,515L489,494L493,474L496,467ZM351,29L293,78L293,254L233,265L233,2L176,47L175,280L47,309L29,367L173,342L175,417L18,452L2,514L169,479L190,467L233,402L239,327L292,318L295,435L481,395L494,333L351,362L354,302L478,276L496,226L494,213L351,241Z"/></svg></span>
     </button>
-    <a href="https://wa.me/966544505296" target="_blank" rel="noopener noreferrer" class="bg-green-600 hover:bg-green-700 text-white p-2.5 rounded-xl flex items-center justify-center shadow-md">
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+    <a href="https://wa.me/966544505296" target="_blank" rel="noopener noreferrer" aria-label="تواصل مباشر عبر واتساب" class="tap-scale min-w-[52px] min-h-[52px] bg-[#15803D] hover:bg-[#166534] text-white p-3 rounded-2xl flex items-center justify-center shadow-lg">
+      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
     </a>
   </div>
 
@@ -643,8 +716,8 @@
           
           <!-- Empty Cart Notice -->
           <div id="empty-cart-message" class="text-center py-16 space-y-3">
-            <div class="w-20 h-20 mx-auto rounded-full bg-[#F1F0E5] flex items-center justify-center text-3xl">
-              🛒
+            <div class="w-20 h-20 mx-auto rounded-full bg-[#F3F1EC] text-[#781329] flex items-center justify-center">
+              <svg class="w-9 h-9" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
             </div>
             <h4 class="font-heading font-bold text-gray-800 text-lg">سلة الطلبات فارغة</h4>
             <p class="text-xs text-gray-500 max-w-xs mx-auto">تصفح أصناف منيو شباك 7 الشهية وأضف ما ترغب به لتجهيز طلبك على الفور.</p>
@@ -669,28 +742,39 @@
               <div id="coupon-message" class="hidden text-[11px] font-bold mt-1.5"></div>
             </div>
 
-            <!-- Customer Details -->
-            <div class="space-y-3">
-              <h4 class="font-heading font-bold text-sm text-gray-900 border-r-2 border-[#781329] pr-2">بيانات العميل لتأكيد الطلب</h4>
+            <!-- Customer Details (Mobile-Optimized 16px Inputs + Quick Note Chips) -->
+            <div class="space-y-3.5">
+              <div class="flex items-center justify-between">
+                <h4 class="font-heading font-bold text-sm text-[#14181F] border-r-4 border-[#781329] pr-2.5">بيانات استلام الطلب</h4>
+                <button type="button" id="clear-all-cart-btn" class="text-xs font-bold text-red-700 hover:text-red-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-lg transition-colors">إفراغ السلة</button>
+              </div>
               
               <div>
-                <label for="cust-name" class="block text-xs font-bold text-gray-700 mb-1">الاسم الكريم <span class="text-red-500">*</span></label>
-                <input type="text" id="cust-name" placeholder="اكتب اسمك الكريم" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#781329]">
+                <label for="cust-name" class="block text-xs font-bold text-[#14181F] mb-1.5">الاسم الكريم <span class="text-red-600">*</span></label>
+                <input type="text" id="cust-name" autocomplete="name" placeholder="اكتب اسمك الكريم لاستلام الطلب" class="w-full min-h-[46px] px-3.5 py-2.5 rounded-xl border-2 border-[#E5E0D5] text-base sm:text-sm text-[#14181F] focus:outline-none focus:border-[#781329]">
               </div>
 
               <div>
-                <label class="block text-xs font-bold text-gray-700 mb-1">نوع الطلب</label>
+                <span class="block text-xs font-bold text-[#14181F] mb-1.5">طريقة الاستلام</span>
                 <div class="grid grid-cols-1 gap-2 text-xs font-bold">
-                  <label class="flex items-center justify-center gap-2 p-2.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-[#781329] transition-colors has-[:checked]:border-[#781329] has-[:checked]:bg-[#781329]/5">
+                  <label class="flex items-center justify-center gap-2 min-h-[46px] p-2.5 rounded-xl border-2 border-[#781329] bg-[#781329]/5 text-[#781329] cursor-pointer">
                     <input type="radio" name="order-type" value="استلام من الفرع" checked class="text-[#781329] focus:ring-[#781329]">
-                    <span>🚗 استلام من الفرع</span>
+                    <svg class="w-4 h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    <span>استلام من الفرع (الحمراء – محطة درب)</span>
                   </label>
                 </div>
               </div>
 
               <div>
-                <label for="order-notes" class="block text-xs font-bold text-gray-700 mb-1">ملاحظات عامة على الطلب</label>
-                <textarea id="order-notes" rows="2" placeholder="أي تفاصيل إضافية مثل: زيادة شطة، كاتشب إضافي، خبز مقمر..." class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs focus:outline-none focus:ring-2 focus:ring-[#781329]"></textarea>
+                <label for="order-notes" class="block text-xs font-bold text-[#14181F] mb-1.5">ملاحظات سريعة على الطلب (اختياري)</label>
+                <div class="flex flex-wrap gap-1.5 mb-2" id="quick-notes-chips">
+                  <button type="button" data-note="خبز مقمر" class="quick-note-chip tap-scale text-[11px] font-bold bg-[#F3F1EC] hover:bg-[#781329] hover:text-white text-[#14181F] px-2.5 py-1.5 rounded-lg border border-[#E5E0D5] transition-colors">+ خبز مقمر</button>
+                  <button type="button" data-note="بدون بصل" class="quick-note-chip tap-scale text-[11px] font-bold bg-[#F3F1EC] hover:bg-[#781329] hover:text-white text-[#14181F] px-2.5 py-1.5 rounded-lg border border-[#E5E0D5] transition-colors">+ بدون بصل</button>
+                  <button type="button" data-note="زيادة شطة" class="quick-note-chip tap-scale text-[11px] font-bold bg-[#F3F1EC] hover:bg-[#781329] hover:text-white text-[#14181F] px-2.5 py-1.5 rounded-lg border border-[#E5E0D5] transition-colors">+ زيادة شطة</button>
+                  <button type="button" data-note="كاتشب إضافي" class="quick-note-chip tap-scale text-[11px] font-bold bg-[#F3F1EC] hover:bg-[#781329] hover:text-white text-[#14181F] px-2.5 py-1.5 rounded-lg border border-[#E5E0D5] transition-colors">+ كاتشب إضافي</button>
+                  <button type="button" data-note="تجهيز سريع" class="quick-note-chip tap-scale text-[11px] font-bold bg-[#F3F1EC] hover:bg-[#781329] hover:text-white text-[#14181F] px-2.5 py-1.5 rounded-lg border border-[#E5E0D5] transition-colors">+ تجهيز سريع</button>
+                </div>
+                <textarea id="order-notes" rows="2" placeholder="أو اكتب أي ملاحظة خاصة هنا..." class="w-full px-3.5 py-2.5 rounded-xl border-2 border-[#E5E0D5] text-base sm:text-xs text-[#14181F] focus:outline-none focus:border-[#781329]"></textarea>
               </div>
 
             </div>
@@ -810,21 +894,21 @@
 
           <!-- Item Notes -->
           <div>
-            <label for="modal-item-notes" class="block text-xs font-bold text-gray-700 mb-1">ملاحظاتك الخاصة على هذا الصنف</label>
-            <input type="text" id="modal-item-notes" placeholder="مثال: بدون بصل، خفيف ملح، مقمر..." class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#781329]">
+            <label for="modal-item-notes" class="block text-xs font-bold text-[#14181F] mb-1.5">ملاحظاتك الخاصة على هذا الصنف</label>
+            <input type="text" id="modal-item-notes" placeholder="مثال: بدون بصل، خفيف ملح، مقمر..." class="w-full min-h-[44px] px-3.5 py-2 text-base sm:text-xs rounded-xl border-2 border-[#E5E0D5] focus:outline-none focus:border-[#781329]">
           </div>
 
-          <!-- Quantity Stepper & Add Button -->
-          <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-4">
-            <div class="flex items-center border border-gray-300 rounded-2xl bg-gray-50 p-1">
-              <button id="modal-qty-minus" class="w-8 h-8 rounded-xl bg-white text-gray-700 hover:bg-gray-100 flex items-center justify-center font-bold text-base shadow-sm focus:outline-none">-</button>
-              <span id="modal-qty-value" class="w-10 text-center font-black text-sm text-gray-900 font-mono">1</span>
-              <button id="modal-qty-plus" class="w-8 h-8 rounded-xl bg-white text-gray-700 hover:bg-gray-100 flex items-center justify-center font-bold text-base shadow-sm focus:outline-none">+</button>
+          <!-- Quantity Stepper & Add Button (>=48px Touch Targets) -->
+          <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
+            <div class="flex items-center border-2 border-[#E5E0D5] rounded-2xl bg-[#F3F1EC] p-1 gap-1">
+              <button id="modal-qty-minus" type="button" aria-label="إنقاص الكمية" class="tap-scale w-11 h-11 rounded-xl bg-white text-[#14181F] hover:bg-gray-100 flex items-center justify-center font-black text-lg shadow-sm">-</button>
+              <span id="modal-qty-value" class="w-9 text-center font-black text-base text-[#14181F] tabular-nums">1</span>
+              <button id="modal-qty-plus" type="button" aria-label="زيادة الكمية" class="tap-scale w-11 h-11 rounded-xl bg-white text-[#14181F] hover:bg-gray-100 flex items-center justify-center font-black text-lg shadow-sm">+</button>
             </div>
 
-            <button id="modal-confirm-add-btn" class="flex-grow shine-btn bg-[#781329] hover:bg-[#600f21] text-white py-3 px-6 rounded-2xl font-heading font-black text-sm shadow-md transition-all flex items-center justify-center gap-2">
+            <button id="modal-confirm-add-btn" type="button" class="tap-scale flex-grow min-h-[52px] shine-btn bg-[#781329] hover:bg-[#5E0E20] text-white py-3 px-5 rounded-2xl font-heading font-black text-sm sm:text-base shadow-lg flex items-center justify-between gap-2">
               <span>أضف إلى السلة</span>
-              <span id="modal-calc-total" class="font-mono text-xs text-[#F5A99B] bg-white/10 px-2 py-0.5 rounded-lg"></span>
+              <span id="modal-calc-total" class="tabular-nums text-xs sm:text-sm text-[#3D0713] font-black bg-[#F5A99B] px-3 py-1 rounded-xl"></span>
             </button>
           </div>
 
@@ -945,12 +1029,46 @@
     let gridInitialized = false;
     let cachedBreakfastState = null;
 
+    function quickAddItem(itemId) {
+      const item = menuById[itemId];
+      if (!item) return;
+      if (item.category === 'fatayer' && !isBreakfastTime()) {
+        showToast('الفطائر متاحة للطلب في فترة الفطور فقط (من 5 الفجر إلى 12 الظهر)', '☀️');
+        return;
+      }
+      // Check if an uncustomized entry of this item already exists in cart
+      const existing = cart.find(function(c) {
+        return c.id === item.id && !c.isMeal && (!c.addons || c.addons.length === 0) && !c.notes;
+      });
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          cartItemId: Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+          id: item.id,
+          name: item.name,
+          basePrice: item.price,
+          unitPrice: item.price,
+          quantity: 1,
+          isMeal: false,
+          addons: [],
+          notes: '',
+          image: item.image,
+          category: item.category
+        });
+      }
+      saveState();
+      updateCartUI();
+      showToast('تمت إضافة "' + item.name + '" إلى السلة!');
+    }
+
     function buildCardNode(item, breakfastActive) {
       const card = document.createElement('div');
-      card.className = "menu-card-item bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col justify-between";
+      card.className = "menu-card-item bg-white rounded-3xl overflow-hidden shadow-sm border-2 border-[#E5E0D5]/80 flex flex-col justify-between";
 
       const isFatayerTimeLocked = (item.category === 'fatayer' && !breakfastActive);
       const isAvailable = (item.available !== false) && !isFatayerTimeLocked;
+      const hasCustomOptions = Boolean(item.allowMeal || item.category === 'fatayer');
 
       card.innerHTML = `
         <div>
@@ -958,50 +1076,68 @@
           <div class="relative w-full aspect-square overflow-hidden" style="aspect-ratio: 1 / 1; background: linear-gradient(180deg, #620420 0%, #80092a 100%);">
             <img src="${item.image}" alt="${item.name}" decoding="async" class="w-full h-full object-cover">
             
-            <div class="absolute top-3 right-3 flex flex-col gap-1.5 items-end">
-              <span class="bg-[#781329] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
+            <div class="absolute top-2.5 right-2.5 flex flex-col gap-1.5 items-end">
+              <span class="bg-[#781329]/95 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
                 ${item.categoryName}
               </span>
             </div>
 
-            <!-- Calories Badge -->
-            <div class="absolute bottom-3 left-3 bg-black/75 text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-              <span>🔥</span>
+            <!-- In-Cart Quantity Pill (Shown dynamically when item is in cart) -->
+            <div class="in-cart-pill hidden absolute top-2.5 left-2.5 bg-[#15803D] text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-md items-center gap-1 tabular-nums">
+              <svg class="w-3.5 h-3.5 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span class="in-cart-qty">0</span>
+            </div>
+
+            <!-- Calories Badge (SVG flame icon instead of emoji) -->
+            <div class="absolute bottom-2.5 left-2.5 bg-[#14181F]/85 text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm tabular-nums">
+              <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"/></svg>
               <span>${item.calories} سعرة</span>
             </div>
 
-            <div class="card-lock-overlay ${!isAvailable ? 'flex' : 'hidden'} absolute inset-0 bg-black/60 flex-col items-center justify-center p-2 text-center">
+            <div class="card-lock-overlay ${!isAvailable ? 'flex' : 'hidden'} absolute inset-0 bg-black/65 flex-col items-center justify-center p-2 text-center">
               <span class="lock-title bg-red-600 text-white text-[11px] sm:text-xs font-black px-3 py-1 rounded-xl shadow-lg">${isFatayerTimeLocked ? 'غير متاح للطلب حالياً' : 'غير متوفر حالياً'}</span>
-              <span class="lock-sub ${isFatayerTimeLocked ? 'inline-block' : 'hidden'} mt-1.5 bg-black/80 text-amber-300 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-lg">☀️ متاح في الفطور (5 ص - 12 ظ)</span>
+              <span class="lock-sub ${isFatayerTimeLocked ? 'inline-block' : 'hidden'} mt-1.5 bg-black/85 text-amber-300 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-lg">متاح في الفطور (5 ص - 12 ظ)</span>
             </div>
           </div>
 
           <!-- Content -->
-          <div class="p-3 sm:p-5">
+          <div class="p-3 sm:p-4">
             <div class="flex items-start justify-between gap-1.5 sm:gap-2 mb-1.5">
-              <h3 class="font-heading font-black text-gray-900 text-xs sm:text-lg leading-snug">${item.name}</h3>
+              <h3 class="font-heading font-black text-[#14181F] text-sm sm:text-lg leading-snug">${item.name}</h3>
               <div class="text-left flex-shrink-0">
-                <span class="font-heading font-black text-sm sm:text-lg text-[#781329] font-mono inline-flex items-center gap-0.5 sm:gap-1">${item.price} ${SAR_ICON}</span>
+                <span class="font-heading font-black text-base sm:text-lg text-[#781329] tabular-nums inline-flex items-center gap-0.5 sm:gap-1 bg-[#FDF2F4] px-2 py-0.5 rounded-lg border border-[#F5A99B]/50">${item.price} ${SAR_ICON}</span>
               </div>
             </div>
 
             ${item.allowMeal ? `
-              <div class="mb-2 sm:mb-3 text-[10px] sm:text-[11px] bg-amber-50 text-amber-900 border border-amber-200/80 px-2.5 py-1.5 rounded-lg sm:rounded-xl flex flex-col items-start gap-0.5 leading-snug">
-                <span class="font-bold">🍟 إمكانية إضافة وجبة</span>
-                <span class="text-[10px] sm:text-[11px] text-amber-800 font-bold inline-flex items-center gap-1 flex-wrap">(بطاطس + مشروب غازي كنزا) <span class="whitespace-nowrap inline-flex items-center gap-0.5">بـ 5 <svg class="inline-block w-[0.95em] h-[0.95em] fill-current shrink-0" viewBox="0 0 497 557" aria-label="ريال سعودي"><path d="M496,456L490,455L486,457L460,461L454,464L447,464L423,471L417,471L311,494L301,516L297,531L294,553L296,556L300,556L308,553L334,549L397,534L423,530L430,527L438,527L443,524L454,523L459,520L467,520L481,515L489,494L493,474L496,467ZM351,29L293,78L293,254L233,265L233,2L176,47L175,280L47,309L29,367L173,342L175,417L18,452L2,514L169,479L190,467L233,402L239,327L292,318L295,435L481,395L494,333L351,362L354,302L478,276L496,226L494,213L351,241Z"/></svg></span></span>
+              <div class="mb-2 text-[10px] sm:text-[11px] bg-amber-50/90 text-amber-950 border border-amber-200 px-2.5 py-1.5 rounded-xl flex flex-col items-start gap-0.5 leading-snug">
+                <span class="font-bold">إمكانية إضافة وجبة (+5 ${SAR_ICON})</span>
+                <span class="text-[10px] text-amber-800 font-semibold">بطاطس مقرمشة + مشروب غازي كنزا</span>
               </div>
             ` : ''}
           </div>
         </div>
 
-        <!-- Bottom Action -->
-        <div class="p-3 sm:p-5 pt-0">
-          <button data-id="${item.id}" class="add-to-cart-btn ${isAvailable ? 'flex' : 'hidden'} w-full bg-[#FAF9F6] hover:bg-[#781329] active:bg-[#781329] text-[#781329] hover:text-white active:text-white border border-[#781329]/20 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl sm:rounded-2xl font-heading font-bold text-[11px] sm:text-xs transition-colors items-center justify-center gap-1 sm:gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            <span>${item.allowMeal || item.category === 'fatayer' ? 'تخصيص وإضافة للسلة' : 'أضف للسلة'}</span>
-          </button>
-          <button disabled class="disabled-cart-btn ${!isAvailable ? 'block' : 'hidden'} w-full bg-gray-100 text-gray-400 py-2 sm:py-2.5 px-2 sm:px-4 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs font-bold cursor-not-allowed">
-            ${isFatayerTimeLocked ? 'غير متاح للطلب (فترة الفطور فقط)' : 'غير متاح'}
+        <!-- Bottom Action (Ergonomic >=44px Touch Targets on Mobile) -->
+        <div class="p-3 sm:p-4 pt-0">
+          <div class="card-actions-wrap ${isAvailable ? 'flex' : 'hidden'} items-center gap-1.5">
+            ${hasCustomOptions ? `
+              <button type="button" data-id="${item.id}" class="add-to-cart-btn tap-scale flex-1 min-h-[44px] bg-[#781329] hover:bg-[#5E0E20] text-white py-2.5 px-2.5 sm:px-3 rounded-xl font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                <svg class="w-4 h-4 shrink-0 text-[#F5A99B]" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>${item.allowMeal ? 'وجبة / تخصيص' : 'إضافات / طلب'}</span>
+              </button>
+              <button type="button" data-quick-id="${item.id}" aria-label="إضافة سريعة ${item.name}" title="إضافة سريعة بدون إضافات" class="quick-add-btn tap-scale min-w-[44px] min-h-[44px] bg-[#FAF9F6] hover:bg-[#F5A99B]/30 text-[#781329] border-2 border-[#781329]/25 rounded-xl flex items-center justify-center font-black">
+                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+              </button>
+            ` : `
+              <button type="button" data-quick-id="${item.id}" class="quick-add-btn tap-scale flex-1 min-h-[44px] bg-[#781329] hover:bg-[#5E0E20] text-white py-2.5 px-3 rounded-xl font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                <svg class="w-4 h-4 shrink-0 text-[#F5A99B]" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                <span>أضف للسلة</span>
+              </button>
+            `}
+          </div>
+          <button disabled class="disabled-cart-btn ${!isAvailable ? 'block' : 'hidden'} w-full min-h-[44px] bg-gray-100 text-gray-500 py-2.5 px-3 rounded-xl text-[11px] sm:text-xs font-bold cursor-not-allowed">
+            ${isFatayerTimeLocked ? 'متاح في الفطور (5 ص - 12 ظ)' : 'غير متاح'}
           </button>
         </div>
       `;
@@ -1018,7 +1154,7 @@
         const isAvailable = (item.available !== false) && !isFatayerTimeLocked;
 
         const overlay = card.querySelector('.card-lock-overlay');
-        const addBtn = card.querySelector('.add-to-cart-btn');
+        const addBtn = card.querySelector('.card-actions-wrap');
         const disBtn = card.querySelector('.disabled-cart-btn');
         if (overlay) {
           overlay.classList.toggle('hidden', isAvailable);
@@ -1060,8 +1196,13 @@
         });
         grid.appendChild(frag);
 
-        // Single delegated click listener for all add-to-cart buttons
+        // Single delegated click listener for customize and 1-tap quick-add buttons
         grid.addEventListener('click', function(e) {
+          const quickBtn = e.target.closest('.quick-add-btn');
+          if (quickBtn) {
+            quickAddItem(quickBtn.getAttribute('data-quick-id'));
+            return;
+          }
           const btn = e.target.closest('.add-to-cart-btn');
           if (btn) {
             openCustomizeModal(btn.getAttribute('data-id'));
@@ -1251,6 +1392,24 @@
       const totalItemsCount = cart.reduce(function(sum, item) { return sum + item.quantity; }, 0);
       const subtotal = cart.reduce(function(sum, item) { return sum + (item.unitPrice * item.quantity); }, 0);
 
+      // Update per-item quantity badges on menu cards
+      const qtyByItemId = {};
+      cart.forEach(function(c) {
+        qtyByItemId[c.id] = (qtyByItemId[c.id] || 0) + c.quantity;
+      });
+      Object.keys(cardCache).forEach(function(id) {
+        const entry = cardCache[id];
+        if (!entry || !entry.el) return;
+        const pill = entry.el.querySelector('.in-cart-pill');
+        const qtySpan = entry.el.querySelector('.in-cart-qty');
+        const count = qtyByItemId[id] || 0;
+        if (pill && qtySpan) {
+          qtySpan.textContent = count + ' في السلة';
+          pill.classList.toggle('hidden', count === 0);
+          pill.classList.toggle('flex', count > 0);
+        }
+      });
+
       countBadges.forEach(function(b) {
         if (b) b.textContent = totalItemsCount;
       });
@@ -1291,35 +1450,35 @@
           <img src="${(menuById[item.id] && menuById[item.id].image) || item.image || ''}" alt="${item.name}" decoding="async" class="w-14 h-14 rounded-xl object-cover flex-shrink-0 border border-gray-100">
           <div class="flex-grow min-w-0">
             <div class="flex items-start justify-between gap-2">
-              <h4 class="font-heading font-black text-sm text-gray-900 truncate">${item.name}</h4>
-              <button data-cartid="${item.cartItemId}" class="remove-cart-item-btn text-gray-400 hover:text-red-600 transition-colors p-1" title="حذف الصنف">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              <h4 class="font-heading font-black text-sm text-[#14181F] truncate">${item.name}</h4>
+              <button type="button" data-cartid="${item.cartItemId}" aria-label="حذف ${item.name}" class="remove-cart-item-btn tap-scale w-9 h-9 rounded-xl text-[#475569] hover:text-red-600 hover:bg-red-50 transition-colors flex items-center justify-center shrink-0" title="حذف الصنف">
+                <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
               </button>
             </div>
 
-            ${item.isMeal ? `<span class="inline-block text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md mt-0.5">🍟 إضافة وجبة (بطاطس + مشروب غازي كنزا)</span>` : ''}
+            ${item.isMeal ? `<span class="inline-block text-[11px] font-bold text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-lg mt-0.5">+ وجبة (بطاطس + كنزا)</span>` : ''}
             
             ${item.addons && item.addons.length ? `
-              <div class="text-[10px] text-gray-500 mt-0.5">
+              <div class="text-[11px] font-medium text-[#475569] mt-0.5">
                 + ${item.addons.join(' • ').replace(/ر\.س/g, SAR_ICON)}
               </div>
             ` : ''}
 
             ${item.notes ? `
-              <div class="text-[10px] text-gray-600 italic bg-gray-50 px-2 py-0.5 rounded mt-1">
-                📝 ${item.notes}
+              <div class="text-[11px] text-[#475569] bg-[#F3F1EC] px-2.5 py-1 rounded-lg mt-1">
+                ملاحظة: ${item.notes}
               </div>
             ` : ''}
 
-            <div class="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
-              <div class="flex items-center border border-gray-200 rounded-xl bg-gray-50">
-                <button data-cartid="${item.cartItemId}" data-action="minus" class="qty-btn w-6 h-6 rounded-lg text-gray-600 hover:bg-white flex items-center justify-center font-bold text-xs">-</button>
-                <span class="w-7 text-center font-bold text-xs text-gray-900 font-mono">${item.quantity}</span>
-                <button data-cartid="${item.cartItemId}" data-action="plus" class="qty-btn w-6 h-6 rounded-lg text-gray-600 hover:bg-white flex items-center justify-center font-bold text-xs">+</button>
+            <div class="flex items-center justify-between mt-2.5 pt-2.5 border-t border-gray-100">
+              <div class="flex items-center border-2 border-[#E5E0D5] rounded-xl bg-[#F3F1EC] p-0.5 gap-1">
+                <button type="button" data-cartid="${item.cartItemId}" data-action="minus" aria-label="إنقاص الكمية" class="qty-btn tap-scale w-9 h-9 rounded-lg bg-white text-[#14181F] hover:bg-gray-100 flex items-center justify-center font-black text-base shadow-sm">-</button>
+                <span class="w-8 text-center font-black text-sm text-[#14181F] tabular-nums">${item.quantity}</span>
+                <button type="button" data-cartid="${item.cartItemId}" data-action="plus" aria-label="زيادة الكمية" class="qty-btn tap-scale w-9 h-9 rounded-lg bg-white text-[#14181F] hover:bg-gray-100 flex items-center justify-center font-black text-base shadow-sm">+</button>
               </div>
 
-              <div class="text-left font-mono">
-                <span class="text-xs font-black text-[#781329] inline-flex items-center gap-0.5">${(item.unitPrice * item.quantity).toFixed(1).replace('.0', '')} ${SAR_ICON}</span>
+              <div class="text-left tabular-nums">
+                <span class="text-sm font-black text-[#781329] inline-flex items-center gap-0.5">${(item.unitPrice * item.quantity).toFixed(1).replace('.0', '')} ${SAR_ICON}</span>
               </div>
             </div>
 
@@ -1570,32 +1729,100 @@
       function updateCategoryTabsUI(selectedCat) {
         document.querySelectorAll('.category-btn').forEach(function(b) {
           const countBadge = b.querySelector('.category-count');
-          if (b.getAttribute('data-category') === selectedCat) {
-            b.classList.add('bg-[#781329]', 'text-white', 'active');
-            b.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-100', 'border', 'border-gray-200');
+          const catIcon = b.querySelector('.cat-icon');
+          const isSelected = (b.getAttribute('data-category') === selectedCat);
+          b.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+          if (isSelected) {
+            b.classList.add('bg-[#781329]', 'text-white', 'border-[#781329]', 'active');
+            b.classList.remove('bg-white', 'text-[#14181F]', 'border-[#E5E0D5]');
             if (countBadge) {
               countBadge.classList.add('bg-white/20', 'text-white');
-              countBadge.classList.remove('bg-gray-100', 'text-gray-600');
+              countBadge.classList.remove('bg-[#F3F1EC]', 'text-[#475569]');
             }
+            if (catIcon) {
+              catIcon.classList.remove('text-[#781329]');
+              catIcon.classList.add('text-[#F5A99B]');
+            }
+            try {
+              b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            } catch (e) {}
           } else {
-            b.classList.remove('bg-[#781329]', 'text-white', 'active');
-            b.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-100', 'border', 'border-gray-200');
+            b.classList.remove('bg-[#781329]', 'text-white', 'border-[#781329]', 'active');
+            b.classList.add('bg-white', 'text-[#14181F]', 'border-[#E5E0D5]');
             if (countBadge) {
               countBadge.classList.remove('bg-white/20', 'text-white');
-              countBadge.classList.add('bg-gray-100', 'text-gray-600');
+              countBadge.classList.add('bg-[#F3F1EC]', 'text-[#475569]');
+            }
+            if (catIcon) {
+              catIcon.classList.add('text-[#781329]');
+              catIcon.classList.remove('text-[#F5A99B]');
             }
           }
         });
       }
 
-      // Category filter buttons
+      // Update dynamic category counts from actual menuItems
+      const countsByCat = { all: menuItems.length };
+      menuItems.forEach(function(it) {
+        countsByCat[it.category] = (countsByCat[it.category] || 0) + 1;
+      });
+      document.querySelectorAll('.category-btn').forEach(function(btn) {
+        const cat = btn.getAttribute('data-category');
+        const badge = btn.querySelector('.category-count');
+        if (badge && countsByCat[cat] !== undefined) {
+          badge.textContent = countsByCat[cat];
+        }
+      });
+
+      // Category filter buttons with smooth scroll-to-grid on mobile
       document.querySelectorAll('.category-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
           currentCategory = btn.getAttribute('data-category');
           updateCategoryTabsUI(currentCategory);
           renderMenu();
+          const gridEl = document.getElementById('products-grid');
+          if (gridEl) {
+            const rect = gridEl.getBoundingClientRect();
+            if (rect.top < 110) {
+              window.scrollTo({ top: window.scrollY + rect.top - 145, behavior: 'smooth' });
+            }
+          }
         });
       });
+
+      // Persist Customer Name & Quick-Tap Note Chips for effortless mobile WhatsApp checkout
+      const custNameInput = document.getElementById('cust-name');
+      if (custNameInput) {
+        try {
+          const savedName = localStorage.getItem('shobak_cust_name');
+          if (savedName) custNameInput.value = savedName;
+          custNameInput.addEventListener('input', function() {
+            localStorage.setItem('shobak_cust_name', custNameInput.value.trim());
+          });
+        } catch (e) {}
+      }
+
+      document.querySelectorAll('.quick-note-chip').forEach(function(chip) {
+        chip.addEventListener('click', function() {
+          const noteText = chip.getAttribute('data-note');
+          const notesArea = document.getElementById('order-notes');
+          if (!notesArea || !noteText) return;
+          const current = notesArea.value.trim();
+          if (current.indexOf(noteText) === -1) {
+            notesArea.value = current ? (current + '، ' + noteText) : noteText;
+          }
+        });
+      });
+
+      const clearAllCartBtn = document.getElementById('clear-all-cart-btn');
+      if (clearAllCartBtn) {
+        clearAllCartBtn.addEventListener('click', function() {
+          cart = [];
+          saveState();
+          updateCartUI();
+          showToast('تم إفراغ السلة');
+        });
+      }
 
       // Search
       const searchInput = document.getElementById('menu-search-input');
